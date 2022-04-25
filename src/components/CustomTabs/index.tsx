@@ -31,7 +31,6 @@ const CustomTabs = (props: { tabs: IProps }) => {
       onChange={onTabsChange}
       isLazy={true}
       defaultIndex={index}
-      colorScheme={"enclosed-colored"}
     >
       <TabList>
         {props.tabs.tabs.map((tab: CustomTabsProps) => {

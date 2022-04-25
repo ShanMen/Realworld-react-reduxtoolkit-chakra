@@ -14,7 +14,6 @@ interface ArticlePageState {
   newComment: string;
   article: Article;
   status: "idle" | "loading" | "succeeded" | "failed";
-  commentStatus: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
 
@@ -117,7 +116,6 @@ const initialState: ArticlePageState = {
   comments: [],
   article: {} as Article,
   status: "idle",
-  commentStatus: "idle",
   error: null,
   newComment: "",
 };
@@ -167,25 +165,22 @@ export const articlePageSlice = createSlice({
         state.status = "failed";
         state.error = action.payload || "";
       })
-      .addCase(postArticleCommentAsync.pending, (state) => {
-        state.commentStatus = "loading";
-      })
       .addCase(postArticleCommentAsync.fulfilled, (state, action) => {
-        state.commentStatus = "succeeded";
+        state.status = "succeeded";
         state.comments.push(action.payload.comment);
       })
       .addCase(postArticleCommentAsync.rejected, (state, action) => {
-        state.commentStatus = "failed";
+        state.status = "failed";
         state.error = action.payload || "";
       })
       .addCase(deleteArticleCommentAsync.fulfilled, (state, action) => {
-        state.commentStatus = "succeeded";
+        state.status = "succeeded";
         state.comments = state.comments.filter(
           (comment) => comment.id !== action.meta.arg.commentId,
         );
       })
       .addCase(deleteArticleCommentAsync.rejected, (state, action) => {
-        state.commentStatus = "failed";
+        state.status = "failed";
         state.error = action.payload || "";
       });
   },

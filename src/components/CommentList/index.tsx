@@ -43,7 +43,7 @@ const CommentList = () => {
 
   return (
     <Box py="6" as={Center}>
-      <Box minW={{ base: "100%", md: "80%", xl: "60%" }}>
+      <Box minW={{ base: "100%", md: "80%", lg: "70%", xl: "50%" }}>
         <NewCommentBox
           value={newComment}
           onChange={onTextBoxChange}

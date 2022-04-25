@@ -50,10 +50,10 @@ const Settings = () => {
   };
 
   return (
-    <Flex align={"center"} justify={"center"} w={"100%"} py="8">
+    <Flex align={"center"} justify={"center"} w={"100%"}>
       <Stack
         mx={"auto"}
-        w={{ base: "90%", md: "80%", lg: "xl" }}
+        w={{ base: "90%", md: "80%", lg: "60%" }}
         rounded={"xl"}
         boxShadow={"lg"}
         p="8"

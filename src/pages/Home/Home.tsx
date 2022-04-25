@@ -44,8 +44,9 @@ const Home = () => {
       />
       <Container
         mt={4}
-        maxW={{ base: "100%", md: "95%", "2xl": "65%" }}
+        maxW={{ base: "100%", md: "95%" }}
         p={{ base: "0" }}
+        minH="100vh"
       >
         <Stack direction={{ base: "column", md: "row" }}>
           <Flex flex={3} minH="50vh">

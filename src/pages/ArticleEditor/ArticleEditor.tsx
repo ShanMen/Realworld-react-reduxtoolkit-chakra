@@ -5,17 +5,14 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   Text,
   Textarea,
 } from "@chakra-ui/react";
 import { CreateArticle } from "../../types/articles";
-import { useNavigate } from "react-router-dom";
 
 const ArticleEditor = (props: IProps) => {
-  const navigate = useNavigate();
   const [articleTitle, setArticleTitle] = React.useState(
     props.articleTitle || "",
   );
@@ -39,17 +36,14 @@ const ArticleEditor = (props: IProps) => {
   };
 
   return (
-    <Flex align={"center"} justify={"center"} w={"100%"} py="8">
+    <Flex align={"center"} justify={"center"} w={"100%"}>
       <Stack
         mx={"auto"}
-        w={{ base: "90%", md: "80%", lg: "xl" }}
+        w={{ base: "90%", md: "80%", lg: "60%" }}
         rounded={"xl"}
         boxShadow={"lg"}
         p="8"
       >
-        <Heading as={"h1"} size={"lg"} color={"green.500"} my="4">
-          {props.editorTitle}
-        </Heading>
         <form onSubmit={onFormSubmit}>
           <Stack spacing={6} align="center">
             <FormControl>
@@ -89,23 +83,14 @@ const ArticleEditor = (props: IProps) => {
                 onChange={(event) => setArticleTags(event.target.value)}
               />
             </FormControl>
-            <Box w="full" display={"flex"} justifyContent={"end"}>
+            <Box>
               <Button
                 type="submit"
-                loadingText={"Submitting..."}
                 isLoading={props.status === "loading"}
                 color="green.500"
                 variant="outline"
               >
                 Submit
-              </Button>
-              <Button
-                ml={4}
-                color="red.500"
-                variant="ghost"
-                onClick={() => navigate(-1)}
-              >
-                Cancel
               </Button>
             </Box>
             {props.status === "failed" && (
@@ -123,7 +108,6 @@ const ArticleEditor = (props: IProps) => {
 export default ArticleEditor;
 
 type IProps = {
-  editorTitle: string;
   articleBody?: string;
   articleDescription?: string;
   articleTitle?: string;

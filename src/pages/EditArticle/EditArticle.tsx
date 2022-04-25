@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   editArticleAsync,
   initializeState,
@@ -38,7 +39,6 @@ const EditArticle = () => {
 
   return (
     <ArticleEditor
-      editorTitle={"Edit Article"}
       onFormSubmit={onFormSubmit}
       status={status}
       error={error || ""}

@@ -34,7 +34,6 @@ const NewArticle = () => {
 
   return (
     <ArticleEditor
-      editorTitle={"New Article"}
       onFormSubmit={onFormSubmit}
       status={status}
       error={error || ""}

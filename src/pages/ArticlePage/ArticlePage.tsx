@@ -19,9 +19,6 @@ const ArticlePage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { status, article } = useAppSelector((state) => state.articlePage);
-  const { user } = useAppSelector((state) => state.app);
-  const shouldDisplayEditArticleButtons =
-    user?.username === article?.author?.username;
 
   const deleteArticle = async () => {
     let result = await dispatch(deleteArticleAsync(slug!)).unwrap();
@@ -60,36 +57,28 @@ const ArticlePage = () => {
           children={
             <Box display={"flex"}>
               <ArticleAuthor article={article!}></ArticleAuthor>
-              {shouldDisplayEditArticleButtons && (
-                <>
-                  <Button
-                    variant={"solid"}
-                    colorScheme={"green"}
-                    ml={"4"}
-                    onClick={() => navigate("/editor/" + slug)}
-                    size="sm"
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant={"link"}
-                    ml={"4"}
-                    onClick={deleteArticle}
-                    colorScheme="red"
-                    size="sm"
-                  >
-                    Delete
-                  </Button>
-                </>
-              )}
+              <Button
+                variant={"solid"}
+                colorScheme={"green"}
+                ml={"4"}
+                onClick={() => navigate("/editor/" + slug)}
+                size="sm"
+              >
+                Edit
+              </Button>
+              <Button
+                variant={"link"}
+                ml={"4"}
+                onClick={deleteArticle}
+                colorScheme="red"
+                size="sm"
+              >
+                Delete
+              </Button>
             </Box>
           }
         />
-        <Container
-          pt={8}
-          maxW={{ base: "100%", md: "95%", "2xl": "65%" }}
-          px="6"
-        >
+        <Container pt={8} maxW="90%">
           <Text fontSize={"lg"}>{article?.body}</Text>
           <Box py="4" minH="80px">
             <TagsList tags={article?.tagList || []} />
