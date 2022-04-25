@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Box, Button, Spacer, Text, Textarea } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  IconButton,
+  Spacer,
+  Text,
+  Textarea,
+} from "@chakra-ui/react";
 import { Comment } from "../../types/articles";
 import { Profile } from "../../types/user";
 import { CommentAuthor } from "../ArticleAuthor";
@@ -15,6 +22,8 @@ const CommentBox = React.memo(
     comment: Comment;
   }) => {
     const { user } = useAppSelector((state) => state.app);
+    const shouldHideDeleteCommentButton =
+      comment.author.username !== user?.username;
     return (
       <Box borderRadius={"md"} border={"1px"} borderColor={"gray.300"} my={4}>
         <Box display={"flex"} flexDirection={"column"}>
@@ -34,18 +43,20 @@ const CommentBox = React.memo(
               author={comment.author}
               createdAt={comment.createdAt}
             />
-            <Button
-              hidden={comment.author.username !== user?.username}
+            <IconButton
+              hidden={shouldHideDeleteCommentButton}
               variant="ghost"
               color="green.600"
-              leftIcon={<AiFillDelete />}
-              onClick={() => onDeleteComment(comment.id)}
+              aria-label="Delete comment"
+              icon={<AiFillDelete />}
+              onClick={() =>
+                onDeleteComment(comment.id)}
             />
           </Box>
         </Box>
       </Box>
     );
-  }
+  },
 );
 
 const NewCommentBox = ({
@@ -59,6 +70,7 @@ const NewCommentBox = ({
   onChange: (event: any) => void;
   onSubmit: (event: any) => void;
 }) => {
+  const { commentStatus } = useAppSelector((state) => state.articlePage);
   return (
     <Box borderRadius={"md"} border={"1px"} borderColor={"gray.300"} my={4}>
       <Box display={"flex"} flexDirection={"column"}>
@@ -78,6 +90,8 @@ const NewCommentBox = ({
             variant={"outline"}
             colorScheme="green"
             onClick={onSubmit}
+            loadingText={"Submitting..."}
+            isLoading={commentStatus === "loading"}
           >
             Post Comment
           </Button>
