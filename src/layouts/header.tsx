@@ -24,9 +24,9 @@ const Header = () => {
   const isLoggedIn = user != null;
 
   return (
-    <Flex w="100%" px="6" py="3">
+    <Flex w={{ base: "100%", "2xl": "65%" }} px="6" py="3">
       <Box p="2">
-        <Heading size="md">Conduit</Heading>
+        <Heading to="/" as={Link} color="green.500" size="md">Conduit</Heading>
       </Box>
       <Spacer />
       <Flex p="2">

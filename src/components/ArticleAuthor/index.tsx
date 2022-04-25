@@ -21,7 +21,12 @@ const ArticleAuthor = React.memo((props: { article: Article }) => {
         >
           {props.article.author.username}
         </Text>
-        <Text lineHeight={"xs"} fontSize="xs" color={"gray.500"}>
+        <Text
+          fontWeight={"medium"}
+          lineHeight={"normal"}
+          fontSize="xs"
+          color={"gray.500"}
+        >
           {dayjs(props.article.createdAt).format("ddd DD MMM YYYY")}
         </Text>
       </Box>
@@ -43,7 +48,12 @@ const CommentAuthor = React.memo(
           >
             {author.username}
           </Text>
-          <Text lineHeight={"xs"} fontSize="xs" color={"gray.500"}>
+          <Text
+            fontWeight={"medium"}
+            lineHeight={"normal"}
+            fontSize="xs"
+            color={"gray.600"}
+          >
             {createdAt != null && dayjs(createdAt).format("ddd DD MMM YYYY")}
           </Text>
         </Box>

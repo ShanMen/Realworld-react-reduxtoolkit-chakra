@@ -229,7 +229,7 @@ test("Should render article preview list", async () => {
     </MemoryRouter>,
   );
   await waitFor(() =>
-    expect(screen.getAllByRole("heading", { name: /hi|new post/ }))
+    expect(screen.getAllByRole("link", { name: /hi|new post/ }))
       .toHaveLength(2)
   );
 });
