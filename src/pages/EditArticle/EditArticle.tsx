@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   editArticleAsync,
   initializeState,
