@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading } from "@chakra-ui/react";
 
 const Banner = ({
   headerText,
@@ -14,15 +14,23 @@ const Banner = ({
       flexDirection={"column"}
       alignItems={align}
       backgroundColor={bgColor ?? "green"}
-      p={"10"}
+      px={2}
+      py={10}
     >
-      <Heading color={"white"} size={"xl"}>
-        {headerText}
-      </Heading>
-      <Heading mt={2} color={"white"} size={"md"}>
-        {subHeaderText}
-      </Heading>
-      {children && <Box mt={4}>{children}</Box>}
+      <Container
+        maxW={{ base: "100%", md: "95%", "2xl": "65%" }}
+        alignItems={align}
+        display={"flex"}
+        flexDirection={"column"}
+      >
+        <Heading color={"white"} size={"xl"} textAlign={alignItems}>
+          {headerText}
+        </Heading>
+        <Heading mt={2} color={"white"} size={"md"}>
+          {subHeaderText}
+        </Heading>
+        {children && <Box mt={4}>{children}</Box>}
+      </Container>
     </Flex>
   );
 };

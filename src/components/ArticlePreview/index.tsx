@@ -52,7 +52,12 @@ const ArticlePreview = (props: { slug: string; index: number }) => {
         </Box>
       </Box>
       <Box mt={5}>
-        <Heading color="green.500" size={"md"}>
+        <Heading
+          as={NavLink}
+          to={`/article/${article?.slug}`}
+          color="green.500"
+          size={"md"}
+        >
           {article?.title}
         </Heading>
         <Text color={"gray.600"} fontSize="sm" isTruncated={true}>
@@ -60,7 +65,7 @@ const ArticlePreview = (props: { slug: string; index: number }) => {
         </Text>
       </Box>
       <Flex mt={4} justifyContent={"space-between"}>
-        <Link as={NavLink} to={"/article/" + article?.slug} fontSize="sm">
+        <Link as={NavLink} to={`/article/${article?.slug}`} fontSize="sm">
           Read more...
         </Link>
         <Box>

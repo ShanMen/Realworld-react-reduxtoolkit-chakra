@@ -36,7 +36,7 @@ export const App = () => {
 
   return (
     <Box
-      w={{ base: "100%", "2xl": "50%" }}
+      maxW={{ base: "100%" }}
       m="auto"
       display={"flex"}
       alignItems={"center"}
