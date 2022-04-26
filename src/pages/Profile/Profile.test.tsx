@@ -19,7 +19,7 @@ jest.mock("react-router-dom", () => ({
 let url = process.env.REACT_APP_API_HOST;
 
 const serverHandlers = [
-  rest.get(url + "/articles?author=test username", (_, res, ctx) => {
+  rest.get(url + "/articles", (_, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({

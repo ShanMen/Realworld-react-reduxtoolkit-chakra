@@ -83,10 +83,10 @@ export const App = () => {
           <Route path="/editor/:slug" element={<EditArticle />} />
         </Route>
         <Route
-          path="/:slug"
+          path="/profile/:username"
           element={<UserOnlyRoute userIsLogged={isAuthenticated} />}
         >
-          <Route path="/:slug" element={<Profile />} />
+          <Route path="/profile/:username" element={<Profile />} />
         </Route>
         <Route path="/article/:slug" element={<ArticlePage />}></Route>
       </Routes>

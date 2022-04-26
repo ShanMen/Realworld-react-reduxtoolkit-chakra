@@ -99,6 +99,10 @@ export const updateUser = async (user: UpdateUser) => {
   );
 };
 
+export const getProfile = async (username: string) => {
+  return axios.get("profiles/" + username);
+};
+
 const buildHeaderQuery = (filter: Record<any, any>) => {
   return Object.entries(filter)
     .map(([key, value]) => `${key}=${value}`)
