@@ -34,14 +34,17 @@ const initialState: HomeState = {
     tabTitle: "Your Feed",
     isHidden: true,
     tabIndex: 0,
+    customTab: false,
   } as CustomTabsProps, {
     tabTitle: "Global Feed",
     isHidden: false,
     tabIndex: 1,
+    customTab: false,
   } as CustomTabsProps, {
     tabTitle: "Custom Tab",
     isHidden: true,
     tabIndex: 2,
+    customTab: true,
   } as CustomTabsProps],
 };
 

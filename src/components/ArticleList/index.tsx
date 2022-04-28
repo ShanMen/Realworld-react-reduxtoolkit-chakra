@@ -1,29 +1,12 @@
 import * as React from "react";
 import { Skeleton } from "@chakra-ui/react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "../../store/hooks";
 import { Article } from "../../types/articles";
 import { ArticlePreview } from "../ArticlePreview";
-import {
-  getArticlesAsync,
-  getFeedsAsync,
-  selectAllArticles,
-} from "./ArticleList.slice";
 
-const ArticleList = () => {
-  const dispatch = useAppDispatch();
-  const { selectedTab } = useAppSelector((state) => state.home);
-  const articles = useAppSelector((state) => selectAllArticles(state));
+const ArticleList = (props: ArticleListProps) => {
+  const { articles } = props;
   const { status } = useAppSelector((state) => state.article);
-
-  React.useEffect(() => {
-    if (selectedTab === "Your Feed") {
-      dispatch(getFeedsAsync({}));
-    } else if (selectedTab === "Global Feed") {
-      dispatch(getArticlesAsync({}));
-    } else {
-      dispatch(getArticlesAsync({ tag: selectedTab }));
-    }
-  }, [selectedTab, dispatch]);
 
   return (
     <Skeleton isLoaded={status === "succeeded"}>
@@ -42,6 +25,10 @@ const ArticleList = () => {
       </div>
     </Skeleton>
   );
+};
+
+type ArticleListProps = {
+  articles: Article[];
 };
 
 export { ArticleList };

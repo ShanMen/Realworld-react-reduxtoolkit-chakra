@@ -1,28 +1,22 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import {
-  updateCustomTab,
-  updateSelectedTab,
-} from "../../pages/Home/Home.slice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { ArticleList } from "../ArticleList";
+import { Article } from "../../types/articles";
 
-const CustomTabs = (props: { tabs: IProps }) => {
-  const { selectedTab } = useAppSelector((state) => state.home);
-  const dispatch = useAppDispatch();
-  const index = props.tabs.tabs.findIndex(
-    (tab: CustomTabsProps) => tab.tabTitle === selectedTab,
+const CustomTabs = (
+  props: {
+    tabs: CustomTabsProps[];
+    isAuthenticated: boolean;
+    selectedTab: string;
+    onTabsChange: (index: number) => void;
+    articles: Article[];
+  },
+) => {
+  const index = props.tabs.findIndex(
+    (tab: CustomTabsProps) => tab.tabTitle === props.selectedTab,
   );
 
   const onTabsChange = async (index: number) => {
-    let tabName = props.tabs.tabs.find((a) => a.tabIndex === index)?.tabTitle;
-    if (index !== 2) {
-      dispatch(updateCustomTab({
-        tab: {
-          isHidden: true,
-        },
-      }));
-    }
-    dispatch(updateSelectedTab({ tab: tabName! }));
+    props.onTabsChange(index);
   };
 
   return (
@@ -34,19 +28,21 @@ const CustomTabs = (props: { tabs: IProps }) => {
       colorScheme={"enclosed-colored"}
     >
       <TabList>
-        {props.tabs.tabs.map((tab: CustomTabsProps) => {
+        {props.tabs.map((tab: CustomTabsProps) => {
           return (
             <Tab key={tab.tabTitle} hidden={tab.isHidden}>
-              {(tab.tabIndex === 2 ? "#" : "") + tab.tabTitle}
+              {(tab.customTab ? "#" : "") + tab.tabTitle}
             </Tab>
           );
         })}
       </TabList>
       <TabPanels>
-        {props.tabs.tabs.map((tab: CustomTabsProps) => {
+        {props.tabs.map((tab: CustomTabsProps) => {
           return (
             <TabPanel p={0} key={tab.tabTitle}>
-              <ArticleList />
+              <ArticleList
+                articles={props.articles}
+              />
             </TabPanel>
           );
         })}
@@ -59,11 +55,7 @@ export type CustomTabsProps = {
   tabTitle?: string;
   isHidden: boolean;
   tabIndex?: number;
-};
-
-type IProps = {
-  tabs: CustomTabsProps[];
-  isAuthenticated: boolean;
+  customTab?: boolean;
 };
 
 export { CustomTabs };
