@@ -21,7 +21,7 @@ export interface MultipleArticles {
 export interface ArticleFilter {
   tag?: string;
   author?: string;
-  favourited?: string;
+  favorited?: string;
   limit?: number;
   offset?: number;
 }
