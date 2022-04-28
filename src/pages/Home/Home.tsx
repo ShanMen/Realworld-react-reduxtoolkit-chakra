@@ -3,12 +3,23 @@ import { Box, Container, Flex, Stack } from "@chakra-ui/react";
 import { Banner } from "../../components/Banner";
 import { CustomTabs } from "../../components/CustomTabs";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getTagsAsync, updateTab } from "./Home.slice";
+import {
+  getTagsAsync,
+  updateCustomTab,
+  updateSelectedTab,
+  updateTab,
+} from "./Home.slice";
 import { TagsPanel } from "../../components/TagsList";
+import {
+  getArticlesAsync,
+  getFeedsAsync,
+  selectAllArticles,
+} from "../../components/ArticleList/ArticleList.slice";
 
 const Home = () => {
   const { isAuthenticated } = useAppSelector((state) => state.app);
-  const { status, tabs } = useAppSelector((state) => state.home);
+  const { status, tabs, selectedTab } = useAppSelector((state) => state.home);
+  const articles = useAppSelector((state) => selectAllArticles(state));
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -35,6 +46,28 @@ const Home = () => {
     }
   }, [isAuthenticated, dispatch]);
 
+  React.useEffect(() => {
+    if (selectedTab === "Your Feed") {
+      dispatch(getFeedsAsync({}));
+    } else if (selectedTab === "Global Feed") {
+      dispatch(getArticlesAsync({}));
+    } else {
+      dispatch(getArticlesAsync({ tag: selectedTab }));
+    }
+  }, [selectedTab, dispatch]);
+
+  const onTabsChange = async (index: number) => {
+    let tabName = tabs.find((a) => a.tabIndex === index)?.tabTitle;
+    if (index !== 2) {
+      dispatch(updateCustomTab({
+        tab: {
+          isHidden: true,
+        },
+      }));
+    }
+    dispatch(updateSelectedTab({ tab: tabName! }));
+  };
+
   return (
     <>
       <Banner
@@ -51,10 +84,11 @@ const Home = () => {
           <Flex flex={3} minH="50vh">
             <Box w="100%">
               <CustomTabs
-                tabs={{
-                  tabs: tabs,
-                  isAuthenticated: isAuthenticated,
-                }}
+                isAuthenticated={isAuthenticated}
+                tabs={tabs}
+                onTabsChange={onTabsChange}
+                selectedTab={selectedTab}
+                articles={articles}
               />
             </Box>
           </Flex>
