@@ -11,7 +11,7 @@ import {
   unfavoriteArticle,
 } from "../../api/api";
 import { RootState } from "../../store/store";
-import { MultipleArticles, ArticleFilter, Article } from "../../types/articles";
+import { Article, ArticleFilter, MultipleArticles } from "../../types/articles";
 
 interface ArticleState {
   articles: MultipleArticles;
@@ -52,7 +52,7 @@ export const favoriteArticleAsync = createAsyncThunk<
       console.error(err);
       return rejectWithValue(err.message);
     }
-  }
+  },
 );
 
 export const unfavoriteArticleAsync = createAsyncThunk<
@@ -70,7 +70,7 @@ export const unfavoriteArticleAsync = createAsyncThunk<
       console.error(err);
       return rejectWithValue(err.message);
     }
-  }
+  },
 );
 
 export const getFeedsAsync = createAsyncThunk<
@@ -86,6 +86,37 @@ export const getFeedsAsync = createAsyncThunk<
     return rejectWithValue(err.message);
   }
 });
+
+export const getFavouritedArticles = createAsyncThunk<
+  MultipleArticles,
+  string,
+  { rejectValue: string }
+>("getFavouritedArticles", async (username: string, { rejectWithValue }) => {
+  try {
+    const filter = { favorited: username } as ArticleFilter;
+    const response: AxiosResponse<MultipleArticles> = await getArticles(filter);
+    return response.data;
+  } catch (err: any) {
+    console.error(err);
+    return rejectWithValue(err.message);
+  }
+});
+
+export const getMyArticles = createAsyncThunk<
+  MultipleArticles,
+  string,
+  { rejectValue: string }
+>("getMyArticles", async (username: string, { rejectWithValue }) => {
+  try {
+    const filter = { author: username } as ArticleFilter;
+    const response: AxiosResponse<MultipleArticles> = await getArticles(filter);
+    return response.data;
+  } catch (err: any) {
+    console.error(err);
+    return rejectWithValue(err.message);
+  }
+});
+
 const initialState: ArticleState = {
   articles: {
     articles: [],
@@ -112,9 +143,30 @@ export const articleSlice = createSlice({
       .addCase(getArticlesAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
         articleAdapter.setAll(state, action.payload.articles);
-        //        state.entities = action.payload;
       })
       .addCase(getArticlesAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload || "";
+      })
+      .addCase(getMyArticles.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getMyArticles.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        articleAdapter.setAll(state, action.payload.articles);
+      })
+      .addCase(getMyArticles.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload || "";
+      })
+      .addCase(getFavouritedArticles.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getFavouritedArticles.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        articleAdapter.setAll(state, action.payload.articles);
+      })
+      .addCase(getFavouritedArticles.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload || "";
       })
