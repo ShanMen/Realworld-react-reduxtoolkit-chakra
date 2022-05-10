@@ -20,7 +20,6 @@ import { ArticleList } from "../../components/ArticleList";
 const Home = () => {
   const { isAuthenticated } = useAppSelector((state) => state.app);
   const { status, tabs, selectedTab } = useAppSelector((state) => state.home);
-  const { status: articleStatus } = useAppSelector((state) => state.article);
   const articles = useAppSelector((state) => selectAllArticles(state));
   const dispatch = useAppDispatch();
 
