@@ -7,6 +7,7 @@ import SignInSlice from "../pages/SignIn/SignIn.slice";
 import SignUpSlice from "../pages/SignUp/SignUp.slice";
 import ArticleEditor from "../pages/ArticleEditor/ArticleEditor.slice";
 import SettingsSlice from "../pages/Settings/Settings.slice";
+import ProfileSlice from "../pages/Profile/Profile.slice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     article: ArticleListSlice,
     articleEditor: ArticleEditor,
     settings: SettingsSlice,
+    profile: ProfileSlice,
   },
 });
 

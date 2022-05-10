@@ -59,7 +59,7 @@ const CommentBox = React.memo(
   },
 );
 
-const NewCommentBox = ({
+const NewCommentBox = React.memo(({
   profile,
   value,
   onChange,
@@ -99,6 +99,6 @@ const NewCommentBox = ({
       </Box>
     </Box>
   );
-};
+});
 
 export { CommentBox, NewCommentBox };

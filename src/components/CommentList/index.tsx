@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Box, Center } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Comment } from "../../types/articles";
@@ -10,6 +11,7 @@ import {
 } from "../../pages/ArticlePage/ArticlePage.slice";
 
 const CommentList = () => {
+  const [comment, setComment] = React.useState("");
   const { comments, newComment, article } = useAppSelector(
     (state) => state.articlePage,
   );
@@ -17,15 +19,15 @@ const CommentList = () => {
   const dispatch = useAppDispatch();
 
   const onTextBoxChange = (event: any) => {
-    dispatch(updateField({ newComment: event.target.value }));
+    setComment(event.target.value);
   };
 
   const onCommentSubmit = (event: any) => {
     event.preventDefault();
     dispatch(
-      postArticleCommentAsync({ slug: article.slug, comment: newComment }),
+      postArticleCommentAsync({ slug: article.slug, comment: comment }),
     );
-    dispatch(updateField({ newComment: "" }));
+    setComment("");
   };
 
   const deleteComment = (commentId: number) => {
@@ -45,7 +47,7 @@ const CommentList = () => {
     <Box py="6" as={Center}>
       <Box minW={{ base: "100%", md: "80%", xl: "60%" }}>
         <NewCommentBox
-          value={newComment}
+          value={comment}
           onChange={onTextBoxChange}
           onSubmit={onCommentSubmit}
           profile={profile}

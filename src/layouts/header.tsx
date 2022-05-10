@@ -105,7 +105,9 @@ const UserLinks = ({ user }: { user: User }) => {
         </MenuButton>
         <MenuList>
           <MenuGroup title="Profile">
-            <MenuItem as={Link} to="/profile">My Profile</MenuItem>
+            <MenuItem as={Link} to={"/profile/" + user.username}>
+              My Profile
+            </MenuItem>
             <MenuItem as={Link} to="/settings">Settings</MenuItem>
             <MenuItem as={Link} to="/change-password">Change Password</MenuItem>
           </MenuGroup>

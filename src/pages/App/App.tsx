@@ -8,7 +8,7 @@ import Settings from "../Settings/Settings";
 import ArticlePage from "../ArticlePage/ArticlePage";
 import NewArticle from "../NewArticle/NewArticle";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getUserAsync } from "./App.slice";
+import { getUserAsync, updateStatus } from "./App.slice";
 import axios from "axios";
 import { CommonHeaderProperties } from "../../types/axiosheader";
 import Home from "../Home/Home";
@@ -28,7 +28,10 @@ export const App = () => {
   }
 
   React.useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      dispatch(updateStatus("succeeded"));
+      return;
+    }
     if (!isAuthenticated) {
       dispatch(getUserAsync());
     }
@@ -82,12 +85,7 @@ export const App = () => {
         >
           <Route path="/editor/:slug" element={<EditArticle />} />
         </Route>
-        <Route
-          path="/:slug"
-          element={<UserOnlyRoute userIsLogged={isAuthenticated} />}
-        >
-          <Route path="/:slug" element={<Profile />} />
-        </Route>
+        <Route path="/profile/:username" element={<Profile />} />
         <Route path="/article/:slug" element={<ArticlePage />}></Route>
       </Routes>
     </Box>
@@ -117,5 +115,8 @@ function UserOnlyRoute({
     return <Navigate to="/" />;
   }
 
-  return <Spinner />;
+  if (status === "loading") {
+    return <Spinner />;
+  }
+  return null;
 }

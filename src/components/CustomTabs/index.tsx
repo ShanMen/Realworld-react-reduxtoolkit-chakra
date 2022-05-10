@@ -1,14 +1,11 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { ArticleList } from "../ArticleList";
-import { Article } from "../../types/articles";
 
 const CustomTabs = (
   props: {
     tabs: CustomTabsProps[];
-    isAuthenticated: boolean;
     selectedTab: string;
     onTabsChange: (index: number) => void;
-    articles: Article[];
+    children: React.ReactNode;
   },
 ) => {
   const index = props.tabs.findIndex(
@@ -40,9 +37,7 @@ const CustomTabs = (
         {props.tabs.map((tab: CustomTabsProps) => {
           return (
             <TabPanel p={0} key={tab.tabTitle}>
-              <ArticleList
-                articles={props.articles}
-              />
+              {props.children}
             </TabPanel>
           );
         })}

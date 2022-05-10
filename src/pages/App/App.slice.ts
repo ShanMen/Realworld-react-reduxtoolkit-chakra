@@ -35,6 +35,14 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     initializeState: (state) => Object.assign(state, initialState),
+    updateStatus: (
+      state,
+      { payload: status }: PayloadAction<
+        "idle" | "loading" | "succeeded" | "failed"
+      >,
+    ) => {
+      state.status = status;
+    },
     loginUser: (state, { payload: user }: PayloadAction<User>) => {
       state.isAuthenticated = true;
       state.user = user;
@@ -53,6 +61,7 @@ export const appSlice = createSlice({
   },
 });
 
-export const { logoutUser, loginUser, initializeState } = appSlice.actions;
+export const { updateStatus, logoutUser, loginUser, initializeState } =
+  appSlice.actions;
 
 export default appSlice.reducer;

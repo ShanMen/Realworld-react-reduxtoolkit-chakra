@@ -99,6 +99,18 @@ export const updateUser = async (user: UpdateUser) => {
   );
 };
 
+export const getProfile = async (username: string) => {
+  return axios.get("profiles/" + username);
+};
+
+export const followUser = async (username: string) => {
+  return axios.post(`profiles/${username}/follow`);
+};
+
+export const unfollowUser = async (username: string) => {
+  return axios.delete(`profiles/${username}/follow`);
+};
+
 const buildHeaderQuery = (filter: Record<any, any>) => {
   return Object.entries(filter)
     .map(([key, value]) => `${key}=${value}`)

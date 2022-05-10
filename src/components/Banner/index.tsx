@@ -8,6 +8,9 @@ const Banner = ({
   children,
 }: BannerProps) => {
   let align = alignItems ?? "center";
+  let optionalChildrenTopMargin = children ? 4 : 0;
+  let optionalSubHeaderMargin = subHeaderText ? 2 : 0;
+
   return (
     <Flex
       w="100%"
@@ -26,17 +29,17 @@ const Banner = ({
         <Heading color={"white"} size={"xl"} textAlign={alignItems}>
           {headerText}
         </Heading>
-        <Heading mt={2} color={"white"} size={"md"}>
+        <Heading mt={optionalSubHeaderMargin} color={"white"} size={"md"}>
           {subHeaderText}
         </Heading>
-        {children && <Box mt={4}>{children}</Box>}
+        {children && <Box mt={optionalChildrenTopMargin}>{children}</Box>}
       </Container>
     </Flex>
   );
 };
 
 type BannerProps = {
-  headerText: string;
+  headerText?: string;
   subHeaderText?: string;
   bgColor?: string;
   alignItems?: "center" | "left";

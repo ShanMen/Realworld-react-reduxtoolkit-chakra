@@ -15,10 +15,12 @@ import {
   getFeedsAsync,
   selectAllArticles,
 } from "../../components/ArticleList/ArticleList.slice";
+import { ArticleList } from "../../components/ArticleList";
 
 const Home = () => {
   const { isAuthenticated } = useAppSelector((state) => state.app);
   const { status, tabs, selectedTab } = useAppSelector((state) => state.home);
+  const { status: articleStatus } = useAppSelector((state) => state.article);
   const articles = useAppSelector((state) => selectAllArticles(state));
   const dispatch = useAppDispatch();
 
@@ -54,7 +56,7 @@ const Home = () => {
     } else {
       dispatch(getArticlesAsync({ tag: selectedTab }));
     }
-  }, [selectedTab, dispatch]);
+  }, [selectedTab, dispatch, isAuthenticated]);
 
   const onTabsChange = async (index: number) => {
     let tabName = tabs.find((a) => a.tabIndex === index)?.tabTitle;
@@ -67,6 +69,8 @@ const Home = () => {
     }
     dispatch(updateSelectedTab({ tab: tabName! }));
   };
+
+  let articlesPreview = <ArticleList articles={articles} />;
 
   return (
     <>
@@ -84,11 +88,10 @@ const Home = () => {
           <Flex flex={3} minH="50vh">
             <Box w="100%">
               <CustomTabs
-                isAuthenticated={isAuthenticated}
                 tabs={tabs}
                 onTabsChange={onTabsChange}
                 selectedTab={selectedTab}
-                articles={articles}
+                children={articlesPreview}
               />
             </Box>
           </Flex>
