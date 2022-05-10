@@ -7,12 +7,11 @@ import { CommentBox, NewCommentBox } from "../../components/CommentBox";
 import {
   deleteArticleCommentAsync,
   postArticleCommentAsync,
-  updateField,
 } from "../../pages/ArticlePage/ArticlePage.slice";
 
 const CommentList = () => {
   const [comment, setComment] = React.useState("");
-  const { comments, newComment, article } = useAppSelector(
+  const { comments, article } = useAppSelector(
     (state) => state.articlePage,
   );
   const { user } = useAppSelector((state) => state.app);

@@ -81,7 +81,7 @@ const Profile = () => {
         dispatch(getFavouritedArticles(username!));
       }
     }
-  }, [selectedTab, dispatch]);
+  }, [selectedTab, dispatch, username]);
 
   const onTabsChange = (index: number) => {
     let tabName = tabs.find((a) => a.tabIndex === index)?.tabTitle;
