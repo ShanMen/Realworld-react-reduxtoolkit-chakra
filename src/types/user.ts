@@ -19,9 +19,10 @@ export interface UpdateUser {
 
 export interface Profile {
   username: string;
-  bio: string | null;
-  image: string | null;
+  bio?: string;
+  image?: string;
   email: string;
+  following?: string;
 }
 
 export function loadUserIntoApp(user: User) {
