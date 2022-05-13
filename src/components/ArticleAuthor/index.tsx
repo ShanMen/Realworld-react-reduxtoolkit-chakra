@@ -1,26 +1,29 @@
 import * as React from "react";
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Image, Link, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { Article } from "../../types/articles";
 import { Profile } from "../../types/user";
+import { Link as NavLink } from "react-router-dom";
 
 const ArticleAuthor = React.memo((props: { article: Article }) => {
   return (
-    <Box display="flex" flexDirection={"row"}>
+    <Box display="flex" flexDirection={"row"} alignItems={"center"}>
       <Image
         src={props.article.author.image || ""}
-        boxSize="32px"
-        borderRadius={"full"}
+        boxSize="37px"
+        borderRadius={"md"}
       />
-      <Box ml="2">
-        <Text
+      <Box ml="4">
+        <Link
+          as={NavLink}
+          to={`/profile/${props.article.author.username}`}
           fontSize="16px"
           lineHeight={"16px"}
           color="green.500"
           fontWeight={"bold"}
         >
           {props.article.author.username}
-        </Text>
+        </Link>
         <Text
           fontWeight={"medium"}
           lineHeight={"normal"}

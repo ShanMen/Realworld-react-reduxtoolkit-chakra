@@ -50,6 +50,7 @@ const TagsList = ({
           return (
             <Tag
               m="1"
+              p={2}
               key={tag}
               onClick={(e) => onClick(e, tag)}
               cursor={onTagsClick ? "pointer" : "default"}

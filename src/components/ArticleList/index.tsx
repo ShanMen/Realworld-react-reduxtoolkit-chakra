@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Skeleton } from "@chakra-ui/react";
+import { Box, Skeleton } from "@chakra-ui/react";
 import { useAppSelector } from "../../store/hooks";
 import { Article } from "../../types/articles";
 import { ArticlePreview } from "../ArticlePreview";
@@ -10,7 +10,7 @@ const ArticleList = (props: ArticleListProps) => {
 
   return (
     <Skeleton isLoaded={status === "succeeded"}>
-      <div>
+      <Box>
         {articles.length === 0 ? <>No articles are here... yet.</> : (
           articles.map((article: Article, index: number) => {
             return (
@@ -22,7 +22,7 @@ const ArticleList = (props: ArticleListProps) => {
             );
           })
         )}
-      </div>
+      </Box>
     </Skeleton>
   );
 };
