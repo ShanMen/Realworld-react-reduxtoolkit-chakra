@@ -27,7 +27,15 @@ const CustomTabs = (
       <TabList>
         {props.tabs.map((tab: CustomTabsProps) => {
           return (
-            <Tab key={tab.tabTitle} hidden={tab.isHidden}>
+            <Tab
+              key={tab.tabTitle}
+              hidden={tab.isHidden}
+              _selected={{
+                fontWeight: "bold",
+                borderBottom: "2px",
+                borderBottomColor: "black",
+              }}
+            >
               {(tab.customTab ? "#" : "") + tab.tabTitle}
             </Tab>
           );

@@ -54,7 +54,7 @@ const TagsList = ({
               key={tag}
               onClick={(e) => onClick(e, tag)}
               cursor={onTagsClick ? "pointer" : "default"}
-              as={Link}
+              as={onTagsClick ? Link : Box}
               href="#"
             >
               {tag}
