@@ -26,18 +26,50 @@ const ArticlePreview = (props: { slug: string; index: number }) => {
 
   return (
     <Box
-      w="100%"
-      borderTop={props.index !== 0 ? "1px" : ""}
-      borderTopColor={"gray.300"}
-      p="4"
+      w="auto"
+      p="6"
+      bg="gray.50"
       py="6"
+      m={4}
+      rounded={"lg"}
+      boxShadow={"sm"}
     >
+      <Heading
+        as={NavLink}
+        to={`/article/${article?.slug}`}
+        color="gray.900"
+        size={"md"}
+        fontWeight={"bold"}
+      >
+        {article?.title}
+      </Heading>
       <Box
+        mt={3}
         display="flex"
         alignItems={"center"}
         justifyContent={"space-between"}
       >
         <ArticleAuthor article={article!} />
+        <Box>
+          {article?.tagList !== [] &&
+            article?.tagList!.map((tag: string) => {
+              return (
+                <Tag p={2} m="1" key={tag}>
+                  {tag}
+                </Tag>
+              );
+            })}
+        </Box>
+      </Box>
+      <Box mt={5}>
+        <Text color={"gray.600"} fontSize="sm" isTruncated={true}>
+          {article?.description}
+        </Text>
+      </Box>
+      <Flex justifyContent={"space-between"} alignItems={"center"}>
+        <Link as={NavLink} to={`/article/${article?.slug}`} fontSize="sm">
+          Read more...
+        </Link>
         <Box>
           <Button
             colorScheme={"green"}
@@ -49,34 +81,6 @@ const ArticlePreview = (props: { slug: string; index: number }) => {
           >
             {article?.favoritesCount || 0}
           </Button>
-        </Box>
-      </Box>
-      <Box mt={5}>
-        <Heading
-          as={NavLink}
-          to={`/article/${article?.slug}`}
-          color="green.500"
-          size={"md"}
-        >
-          {article?.title}
-        </Heading>
-        <Text color={"gray.600"} fontSize="sm" isTruncated={true}>
-          {article?.description}
-        </Text>
-      </Box>
-      <Flex mt={4} justifyContent={"space-between"}>
-        <Link as={NavLink} to={`/article/${article?.slug}`} fontSize="sm">
-          Read more...
-        </Link>
-        <Box>
-          {article?.tagList !== [] &&
-            article?.tagList!.map((tag: string) => {
-              return (
-                <Tag m="1" key={tag}>
-                  {tag}
-                </Tag>
-              );
-            })}
         </Box>
       </Flex>
     </Box>
